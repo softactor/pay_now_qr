@@ -34,6 +34,9 @@ function get_api_response($param){
         CURLOPT_URL => 'https://api.ocbc.com:8243/transactional/paynowqr/1.0',
         CURLOPT_USERAGENT => 'PayNow QR',
         CURLOPT_POST => 1,
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+        ],
         CURLOPT_POSTFIELDS => [
             'ProxyType'     => $param['ProxyType'],
             'ProxyValue'    => $param['ProxyValue'],
@@ -42,7 +45,8 @@ function get_api_response($param){
             'QRCodeSize'    => $param['QRCodeSize'],
             'ExpiryDate'    => $param['ExpiryDate']
         ]
-    ]);
+    ]);    
+    
 // Send the request & save response to $resp
     $resp = curl_exec($curl);
 // Close request to clear up some resources
