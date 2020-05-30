@@ -26,7 +26,7 @@ if (isset($_GET['process_type']) && $_GET['process_type'] == 'execute_api_form')
     echo json_encode($feedback);
 }
 
-function execute_api_form($param){
+function get_api_response($param){
     $curl = curl_init();
 // Set some options - we are passing in a useragent too here
     curl_setopt_array($curl, [
