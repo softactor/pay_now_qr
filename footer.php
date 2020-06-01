@@ -8,6 +8,8 @@
                     dataType:'json',
                     data    : $("#pay_now_qr_form").serialize(),
                     success: function(response){
+                        console.log(response);
+                        return false;
                         $('#api_response_data').html(response.data)
 //                        if(response.status=='success'){
 //                            $('#created_updated_op_op_details').html(response.createdUpdatedData)
