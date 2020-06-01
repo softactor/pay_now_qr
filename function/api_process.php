@@ -31,7 +31,7 @@ function get_api_response($param){
 // Set some options - we are passing in a useragent too here
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => 'https://api.ocbc.com:8243/transactional/paynowqr/1.0',
+        CURLOPT_URL => 'https://api.ocbc.com:8243/transactional/paynowqr/1.0/payNowQR',
         CURLOPT_POST => 1,
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
