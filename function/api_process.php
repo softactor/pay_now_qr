@@ -28,22 +28,24 @@ if (isset($_GET['process_type']) && $_GET['process_type'] == 'execute_api_form')
 
 function get_api_response($param){
     $curl = curl_init();
-// Set some options - we are passing in a useragent too here
-    curl_setopt_array($curl, [
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => 'https://api.ocbc.com:8243/transactional/paynowqr/1.0/payNowQR',
-        CURLOPT_POST => 1,
-        CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer 18490360bf06439021a3ee431caa9a81'
-        ],
-        CURLOPT_POSTFIELDS => [
+    $postData   =     [
             'ProxyType'     => $param['ProxyType'],
             'ProxyValue'    => $param['ProxyValue'],
             'Amount'        => $param['Amount'],
             'ReferenceText' => $param['ReferenceText'],
             'QRCodeSize'    => $param['QRCodeSize'],
             'ExpiryDate'    => $param['ExpiryDate']
-        ]
+        ];
+// Set some options - we are passing in a useragent too here
+    curl_setopt_array($curl, [
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => 'https://api.ocbc.com:8243/transactional/paynowqr/1.0/payNowQR',
+        CURLOPT_POST => 1,
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer 18490360bf06439021a3ee431caa9a81'
+        ],
+        CURLOPT_POSTFIELDS => json_encode($postData)
     ]);    
     
 // Send the request & save response to $resp
