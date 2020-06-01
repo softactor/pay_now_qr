@@ -7,7 +7,13 @@
  * 2. Code field must be unique
  * *****************************************************************************
  */
+if (isset($_GET['process_type']) && $_GET['process_type'] == 'draw_qrcode') {
+    $result         =   json_decode($_POST['data']);
+    make_qrcode_data($result);
+}
 if (isset($_GET['process_type']) && $_GET['process_type'] == 'execute_api_form') {
+    $status                   =   "error";
+    $data                     =   "";
     $param['ProxyType']       =   $_POST['ProxyType'];
     $param['ProxyValue']      =   $_POST['ProxyValue'];
     $param['Amount']          =   $_POST['Amount'];
@@ -17,10 +23,16 @@ if (isset($_GET['process_type']) && $_GET['process_type'] == 'execute_api_form')
     
     $apResponse               =   get_api_response($param);
     
+    $result                   = json_decode($apResponse);
+    if(isset($result->Success) && $result->Success == 1){
+        $status         =   "success";
+        $data           =   $result->Results;
+    }
+    
     $feedback   =   [
-        'status'    => 'success',
+        'status'    => $status,
         'message'   => 'Got response',
-        'data'      => $apResponse,
+        'data'      => $data,
     ];
     
     echo json_encode($feedback);
@@ -54,4 +66,31 @@ function get_api_response($param){
     curl_close($curl);
     return $resp;
 }
-?>
+
+function make_qrcode_data($data){ ?>
+<div class="row">
+    <div class="col-md-8">
+        <div class="table-responsive">          
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Proxy Type</td>
+                        <td><?php echo $data->ProxyValue; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Amount</td>
+                        <td><?php echo $data->Amount; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Reference Text</td>
+                        <td><?php echo $data->ReferenceText; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <?php echo $data->QRCodeData; ?>
+    </div>
+</div>
+<?php } ?>

@@ -64,7 +64,14 @@
         </form>
     </div>
     <div class="col-md-5">
-        <div id="api_response_data"></div>
+        <div id="api_processing_info" style="display: none; margin-top: 35%;">
+            <div class="alert alert-info">
+                <strong>Information!</strong> Data is processing...
+            </div>
+        </div>
+        <div id="api_response_data">
+            
+        </div>
     </div>
 </div>   
 <?php include 'footer.php'; ?>
