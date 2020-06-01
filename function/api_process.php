@@ -70,6 +70,7 @@ function get_api_response($param){
 function make_qrcode_data($data){ ?>
 <div class="row">
     <div class="col-md-8">
+        <h2>API Response<hr></h2>
         <div class="table-responsive">          
             <table class="table">
                 <tbody>
