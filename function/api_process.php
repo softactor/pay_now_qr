@@ -35,7 +35,7 @@ function get_api_response($param){
         CURLOPT_POST => 1,
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
-            'Authorization: 18490360bf06439021a3ee431caa9a81'
+            'Authorization: Bearer 18490360bf06439021a3ee431caa9a81'
         ],
         CURLOPT_POSTFIELDS => [
             'ProxyType'     => $param['ProxyType'],
