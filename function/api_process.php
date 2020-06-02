@@ -74,33 +74,43 @@ function generateQRCodePngFile($data){
     $qrfilename         =   $name . '.png';
     $qr_path_with_file  =   $path.$qrfilename;
     QRcode::png($qrcodeDataDetails, $qr_path_with_file);
+    return $qrfilename;
 }
 
 function make_qrcode_data($data){ ?>
-<div class="row">
-    <div class="col-md-8">
-        <h2>API Response<hr></h2>
-        <div class="table-responsive">          
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Proxy Type</td>
-                        <td><?php echo $data->ProxyValue; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Amount</td>
-                        <td><?php echo $data->Amount; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Reference Text</td>
-                        <td><?php echo $data->ReferenceText; ?></td>
-                    </tr>
-                </tbody>
-            </table>
+    <h2>API Response<hr></h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="table-responsive">          
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Proxy Type</td>
+                            <td><?php echo $data->ProxyValue; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Amount</td>
+                            <td><?php echo $data->Amount; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Reference Text</td>
+                            <td><?php echo $data->ReferenceText; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <?php
+            $qrData = [
+                'name' => $data->ProxyValue,
+                'string' => $data->QRCodeData,
+            ];
+            $fileName = generateQRCodePngFile($qrData);
+            if (isset($fileName) && !empty($fileName)) {
+                ?>
+                <img width="300" src="uploads/qrcodepngs/<?php echo $fileName; ?>" />
+            <?php } ?>
         </div>
     </div>
-    <div class="col-md-4">
-        <?php echo $data->QRCodeData; ?>
-    </div>
-</div>
 <?php } ?>
