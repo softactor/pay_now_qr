@@ -66,6 +66,15 @@ function get_api_response($param){
     curl_close($curl);
     return $resp;
 }
+function generateQRCodePngFile($data){
+    $name               =   $data['name'];
+    $qrcodeDataDetails  =   $data['string'];
+    include "../vendor/phpqrcode/qrlib.php";
+    $path               =   "../uploads/qrcodepngs/";
+    $qrfilename         =   $name . '.png';
+    $qr_path_with_file  =   $path.$qrfilename;
+    QRcode::png($qrcodeDataDetails, $qr_path_with_file);
+}
 
 function make_qrcode_data($data){ ?>
 <div class="row">
