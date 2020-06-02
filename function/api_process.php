@@ -109,7 +109,7 @@ function make_qrcode_data($data){ ?>
             $fileName = generateQRCodePngFile($qrData);
             if (isset($fileName) && !empty($fileName)) {
                 ?>
-                <img width="300" src="uploads/qrcodepngs/<?php echo $fileName; ?>" />
+                <img src="uploads/qrcodepngs/<?php echo $fileName; ?>" />
             <?php } ?>
         </div>
     </div>
